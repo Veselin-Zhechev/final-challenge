@@ -26,4 +26,4 @@ jobs:
       run: dotnet build MyApp/MyApp.csproj --no-restore
 
     - name: Run tests
-      run: dotnet test MyApp.Tests/MyApp.Tests.csproj --no-build --verbosity normal
+      run: dotnet test MyApp.Tests/MyApp.Tests.csproj --verbosity normal
