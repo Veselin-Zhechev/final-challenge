@@ -2,31 +2,28 @@ name: .NET Build and Test
 
 on:
   push:
-    branches:
-      - master
-      - feature/**
+    branches: [ master, feature/add-functionality ]
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧾 Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: 💾 Set up .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-      - name: 📦 Restore dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore MyApp/MyApp.csproj
 
-      - name: 🛠️ Build the project
-        run: dotnet build --no-restore
+    - name: Build
+      run: dotnet build MyApp/MyApp.csproj --no-restore
 
-      - name: 🧪 Run tests
-        run: dotnet test --no-build --verbosity normal
+    - name: Run tests
+      run: dotnet test MyApp.Tests/MyApp.Tests.csproj --no-build --verbosity normal
